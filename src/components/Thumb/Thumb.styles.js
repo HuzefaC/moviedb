@@ -13,10 +13,10 @@ export const Image = styled.img`
   }
 
   @keyframes animateThumb {
-    from {
+    0% {
       opacity: 0;
     }
-    to {
+    100% {
       opacity: 1;
     }
   }
