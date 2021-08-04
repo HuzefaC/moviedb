@@ -11,14 +11,20 @@ import SearchBar from '../../components/SearchBar/SearchBar.component';
 import Spinner from '../../components/Spinner/Spinner.component';
 import Button from '../../components/Button/Button.component';
 
-// Hook
+// Hooks
 import { useHomeFetch } from '../../hooks/useHomeFetch';
 
-// Image
+// Images
 import NoImage from '../../images/no_image.jpg';
 
 const Home = () => {
-  const { state, loading, error, setSearchTerm, searchTerm } = useHomeFetch();
+  const { state, loading, error, setSearchTerm, searchTerm, setisLoadingMore } =
+    useHomeFetch();
+
+  if (error) {
+    return <div>Something went wrong!!</div>;
+  }
+
   return (
     <>
       {!searchTerm && state.results[0] ? (
@@ -45,7 +51,7 @@ const Home = () => {
       </Grid>
       {loading && <Spinner />}
       {state.page < state.total_pages && !loading && (
-        <Button text="Load More" />
+        <Button text="Load More" callback={() => setisLoadingMore(true)} />
       )}
     </>
   );

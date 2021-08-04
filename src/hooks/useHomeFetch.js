@@ -11,10 +11,11 @@ const initialState = {
 };
 
 export const useHomeFetch = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [state, setState] = useState(initialState);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(''); // For search term
+  const [state, setState] = useState(initialState); // For the movie data
+  const [loading, setLoading] = useState(false); // For Spinner
+  const [error, setError] = useState(false); // For Errors
+  const [isLoadingMore, setisLoadingMore] = useState(false); // For Loading more data
 
   const fetchMovies = async (page, searchTerm = '') => {
     try {
@@ -39,11 +40,20 @@ export const useHomeFetch = () => {
     fetchMovies(1, searchTerm);
   }, [searchTerm]);
 
+  // Load more
+  useEffect(() => {
+    if (!isLoadingMore) return;
+
+    fetchMovies(state.page + 1, searchTerm);
+    setisLoadingMore(false);
+  }, [isLoadingMore, searchTerm, state.page]);
+
   return {
     state,
     loading,
     error,
     setSearchTerm,
     searchTerm,
+    setisLoadingMore,
   };
 };
