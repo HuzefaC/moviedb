@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../config';
 
 // Component
+import MovieInfo from './MovieInfo/MovieInfo.component';
 import Grid from './Grid/Grid.component';
 import { Spinner } from './Spinner/Spinner.styles';
 import BreadCrumb from './BreadCrumb/BreadCrumb.component';
@@ -24,6 +25,7 @@ const Movie = () => {
   return (
     <>
       <BreadCrumb movieTitle={movie.original_title} />
+      <MovieInfo movie={movie} />
     </>
   );
 };
