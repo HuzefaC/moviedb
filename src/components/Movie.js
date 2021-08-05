@@ -8,6 +8,8 @@ import MovieInfo from './MovieInfo/MovieInfo.component';
 import Grid from './Grid/Grid.component';
 import { Spinner } from './Spinner/Spinner.styles';
 import BreadCrumb from './BreadCrumb/BreadCrumb.component';
+import MovieInfoBar from './MovieInfoBar/MovieInfoBar.component';
+import Actor from './Actor/Actor.component';
 // Hook
 import { useMovieFetch } from '../hooks/useMovieFetch';
 
@@ -26,6 +28,25 @@ const Movie = () => {
     <>
       <BreadCrumb movieTitle={movie.original_title} />
       <MovieInfo movie={movie} />
+      <MovieInfoBar
+        time={movie.runtime}
+        budget={movie.budget}
+        revenue={movie.revenue}
+      />
+      <Grid header="Actors">
+        {movie.actors.map((actor) => (
+          <Actor
+            key={actor.credit_id}
+            name={actor.name}
+            character={actor.character}
+            imageUrl={
+              actor.profile_path
+                ? `${IMAGE_BASE_URL}${POSTER_SIZE}${actor.profile_path}`
+                : NoImage
+            }
+          />
+        ))}
+      </Grid>
     </>
   );
 };
