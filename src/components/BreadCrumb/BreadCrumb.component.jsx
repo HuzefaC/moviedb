@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Movie from '../Movie';
 
 // Styles
 import { Wrapper, Content } from './BreadCrumb.styles';

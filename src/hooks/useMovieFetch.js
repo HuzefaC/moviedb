@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 
+// Helpers
+import { isPersistedState } from '../helpers';
+
 // API
 import apiSettings from '../API';
 
@@ -32,8 +35,21 @@ export const useMovieFetch = (movieId) => {
       }
     };
 
+    const sessionState = isPersistedState(movieId);
+
+    if (sessionState) {
+      setState(sessionState);
+      setLoading(false);
+      return;
+    }
     fetchMovie();
   }, [movieId]);
+
+  // Write to session storage
+
+  useEffect(() => {
+    sessionStorage.setItem(movieId, JSON.stringify(state));
+  }, [movieId, state]);
 
   return { state, loading, error };
 };
